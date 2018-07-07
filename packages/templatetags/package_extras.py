@@ -20,13 +20,13 @@ class BuildQueryStringNode(template.Node):
         # keys and list of values to be byte strings only.
         qs = {k.encode('latin-1'): [v.encode('latin-1') for v in vals]
                 for k, vals in list(qs.items())}
-        if 'sort' in qs and self.sortfield in qs['sort']:
-            if self.sortfield.startswith('-'):
-                qs['sort'] = [self.sortfield[1:]]
+        if b'sort' in qs and self.sortfield in qs[b'sort']:
+            if self.sortfield.startswith(b'-'):
+                qs[b'sort'] = [self.sortfield[1:]]
             else:
-                qs['sort'] = ['-' + self.sortfield]
+                qs[b'sort'] = ['-' + self.sortfield]
         else:
-            qs['sort'] = [self.sortfield]
+            qs[b'sort'] = [self.sortfield]
         return urlencode(qs, True).replace('&', '&amp;')
 
 
